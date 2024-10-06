@@ -1,3 +1,4 @@
+import 'package:club8_dev/widgets/customNavigationButton.dart';
 import 'package:club8_dev/widgets/customTextField.dart';
 import 'package:club8_dev/widgets/waveappbarWidget.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,10 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
   void initState() {
     super.initState();
     fetchExperiences();
+    // Listen to text changes
+    _textController.addListener(() {
+      setState(() {}); // Rebuild the widget on text change
+    });
     _focusNode = FocusNode()
       ..addListener(() {
         if (_focusNode.hasFocus) {
@@ -111,48 +116,17 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                 textSize: textSize,
                 hintText: 'Describe your perfect hotspot',
               ),
-
+              SizedBox(
+                height: 12,
+              ),
               // Button below the TextField
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black,
-                        Colors.grey,
-                        Colors.black,
-                      ],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.white, width: 0.5),
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      // Handle button press
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          "Next",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              GradientButton(
+                buttonText: "Next",
+                icon: Icons.arrow_forward, // Optional icon
+                controller: _textController,
+                onPressed: () {
+                  // Handle button press
+                },
               ),
             ],
           ),
