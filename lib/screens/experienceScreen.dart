@@ -1,3 +1,4 @@
+import 'package:club8_dev/widgets/customTextField.dart';
 import 'package:club8_dev/widgets/waveappbarWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -70,26 +71,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(
-          Icons.arrow_back_sharp,
-          color: Colors.white,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.close,
-              color: Colors.white,
-            ),
-          ),
-        ],
-        title: WaveAppBar(
-          waveColor: Colors.purple.shade900.withOpacity(0.9), // Half blue
-        ),
-        backgroundColor: Colors.black,
-        elevation: 0,
-      ),
+      appBar: WaveAppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -122,41 +104,14 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                         }).toList(),
                       ),
                     ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SizedBox(
-                  height: textFieldHeight, // Adjust height dynamically
-                  child: TextField(
-                    controller: _textController,
-                    focusNode: _focusNode, // Attach FocusNode
-                    maxLength: 250, // Character limit
-                    maxLines: null, // Allows multi-line input
-                    expands: true, // Allows TextField to expand
-                    style: TextStyle(fontSize: textSize), // Adjust text size
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none, // Remove border
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(15)), // Radius
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(15)), // Radius
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(15)), // Radius
-                      ),
-                      labelText: 'Describe your perfect hotspots',
-                      filled: true,
-                      fillColor:
-                          Color.fromARGB(255, 71, 71, 71), // Background color
-                    ),
-                  ),
-                ),
+              CustomTextField(
+                controller: _textController,
+                focusNode: _focusNode,
+                textFieldHeight: textFieldHeight,
+                textSize: textSize,
+                hintText: 'Describe your perfect hotspot',
               ),
+
               // Button below the TextField
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
