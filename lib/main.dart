@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black, // Set background to black
       ),
-      home: RecordingScreen(),
+      home: ExperienceScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

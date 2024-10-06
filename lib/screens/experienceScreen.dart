@@ -1,6 +1,7 @@
 import 'package:club8_dev/blocs/experience_screen_bloc/experience_bloc.dart';
 import 'package:club8_dev/blocs/experience_screen_bloc/experience_event.dart';
 import 'package:club8_dev/blocs/experience_screen_bloc/experience_state.dart';
+import 'package:club8_dev/screens/onboardingScreen.dart';
 import 'package:club8_dev/widgets/customNavigationButton.dart';
 import 'package:club8_dev/widgets/customStampLikeCardWidget.dart';
 import 'package:club8_dev/widgets/customTextField.dart';
@@ -109,7 +110,13 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                   icon: Icons.arrow_forward,
                   controller: _textController,
                   onPressed: () {
-                    // Handle button press
+                    print("Next button pressed");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RecordingScreen(),
+                      ),
+                    );
                   },
                 ),
               ],

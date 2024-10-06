@@ -17,13 +17,12 @@ class RecordingScreen extends StatefulWidget {
 
 class _RecordingScreenState extends State<RecordingScreen> {
   bool isRecording = false;
-  bool showWaveWidget = false; // New variable to control wave widget visibility
+  bool showWaveWidget = false;
   late final AudioRecorder _audioRecorder;
   String? _audioPath;
-  final TextEditingController _textController =
-      TextEditingController(); // Add controller for TextField
-  double textFieldHeight = 360; // Default height for the TextField
-  double textSize = 20; // Default text size
+  final TextEditingController _textController = TextEditingController();
+  double textFieldHeight = 360;
+  double textSize = 20;
   late FocusNode _focusNode;
 
   @override
@@ -33,16 +32,14 @@ class _RecordingScreenState extends State<RecordingScreen> {
     _focusNode = FocusNode()
       ..addListener(() {
         if (_focusNode.hasFocus) {
-          // Adjust height and text size when the keyboard opens
           setState(() {
-            textFieldHeight = 120; // Decrease height when keyboard opens
-            textSize = 16; // Decrease text size when keyboard opens
+            textFieldHeight = 120;
+            textSize = 16;
           });
         } else {
-          // Reset height and text size when the keyboard closes
           setState(() {
-            textFieldHeight = 360; // Reset height
-            textSize = 20; // Reset text size
+            textFieldHeight = 360;
+            textSize = 20;
           });
         }
       });
@@ -51,8 +48,8 @@ class _RecordingScreenState extends State<RecordingScreen> {
   @override
   void dispose() {
     _audioRecorder.dispose();
-    _textController.dispose(); // Dispose the TextEditingController
-    _focusNode.dispose(); // Dispose the FocusNode
+    _textController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -68,14 +65,10 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
   Future<void> _startRecording() async {
     try {
-      debugPrint(
-          '=========>>>>>>>>>>> RECORDING!!!!!!!!!!!!!!! <<<<<<===========');
-
       String filePath = await getApplicationDocumentsDirectory()
           .then((value) => '${value.path}/${_generateRandomId()}.wav');
       await _audioRecorder.start(
         const RecordConfig(
-          // specify the codec to be `.wav`
           encoder: AudioEncoder.wav,
         ),
         path: filePath,
@@ -88,10 +81,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
   Future<void> _stopRecording() async {
     try {
       String? path = await _audioRecorder.stop();
-
       setState(() {
         _audioPath = path!;
-        showWaveWidget = true; // Show the wave widget after stopping recording
+        showWaveWidget = true;
       });
       debugPrint('=========>>>>>> PATH: $_audioPath <<<<<<===========');
     } catch (e) {
@@ -100,22 +92,19 @@ class _RecordingScreenState extends State<RecordingScreen> {
   }
 
   void _record() async {
-    if (isRecording == false) {
+    if (!isRecording) {
       final status = await Permission.microphone.request();
-
       if (status == PermissionStatus.granted) {
         setState(() {
           isRecording = true;
-          showWaveWidget = true; // Show wave widget when recording starts
+          showWaveWidget = true;
         });
         await _startRecording();
       } else if (status == PermissionStatus.permanentlyDenied) {
         debugPrint('Permission permanently denied');
-        // TODO: handle this case
       }
     } else {
       await _stopRecording();
-
       setState(() {
         isRecording = false;
       });
@@ -139,7 +128,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                   fontWeight: FontWeight.bold,
                   fontSize: textSize),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             const Text(
               "Tell us about your intent and what motivates you to create experiences.",
               style: TextStyle(
@@ -147,7 +136,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                 fontSize: 14,
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             CustomTextField(
               controller: _textController,
               focusNode: _focusNode,
@@ -156,8 +145,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
               hintText: 'Start typing here',
             ),
             const SizedBox(height: 12),
-            if (isRecording ||
-                showWaveWidget) // Show the wave widget if recording or after
+            if (isRecording || showWaveWidget)
               CustomRecordingWaveWidget(
                 isRecording: isRecording,
               ),
