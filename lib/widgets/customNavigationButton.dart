@@ -1,6 +1,8 @@
+import 'package:club8_dev/blocs/gradient_button/gradient_button_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:club8_dev/Utils/colors.dart';
 import 'package:club8_dev/Utils/spacing.dart';
-import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
   final String buttonText;
@@ -18,57 +20,74 @@ class GradientButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: Spacing.small), // Use spacing constant
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: controller.text.isEmpty
-                ? [
-                    AppColors.darkBlack,
-                    AppColors.lightGrey,
-                    AppColors.darkBlack,
-                  ]
-                : [
-                    AppColors.darkBlack,
-                    AppColors.grey,
-                    AppColors.darkBlack,
-                  ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: controller.text.isEmpty ? AppColors.grey : AppColors.white,
-            width: 0.5,
-          ),
-        ),
-        child: TextButton(
-          onPressed: onPressed,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (icon != null) ...[
-                Text(
-                  buttonText,
-                  style: TextStyle(
-                    color: controller.text.isEmpty
-                        ? AppColors.grey
-                        : AppColors.white,
-                    fontSize: 16,
+    return BlocProvider(
+      create: (_) => GradientButtonBloc(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: Spacing.small),
+        child: BlocListener<GradientButtonBloc, GradientButtonState>(
+          listener: (context, state) {
+            if (state is GradientButtonEnabled) {
+              // You can do something when the button is enabled
+            }
+          },
+          child: BlocBuilder<GradientButtonBloc, GradientButtonState>(
+            builder: (context, state) {
+              // Update the BLoC state based on text input
+              return Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: state is GradientButtonEnabled
+                        ? [
+                            AppColors.darkBlack,
+                            AppColors.grey,
+                            AppColors.darkBlack,
+                          ]
+                        : [
+                            AppColors.darkBlack,
+                            AppColors.lightGrey,
+                            AppColors.darkBlack,
+                          ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: state is GradientButtonEnabled
+                        ? AppColors.white
+                        : AppColors.grey,
+                    width: 0.5,
                   ),
                 ),
-                SizedBox(width: Spacing.horizontalMedium), // Use spacing constant
-                Icon(
-                  icon,
-                  color: controller.text.isEmpty
-                      ? AppColors.grey
-                      : AppColors.white,
-                  size: 20,
+                child: TextButton(
+                  onPressed: state is GradientButtonEnabled ? onPressed : null,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (icon != null) ...[
+                        Text(
+                          buttonText,
+                          style: TextStyle(
+                            color: state is GradientButtonEnabled
+                                ? AppColors.white
+                                : AppColors.grey,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(width: Spacing.horizontalMedium),
+                        Icon(
+                          icon,
+                          color: state is GradientButtonEnabled
+                              ? AppColors.white
+                              : AppColors.grey,
+                          size: 20,
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
-              ],
-            ],
+              );
+            },
           ),
         ),
       ),

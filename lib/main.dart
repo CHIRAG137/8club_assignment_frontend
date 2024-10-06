@@ -1,6 +1,7 @@
 import 'package:club8_dev/screens/experienceScreen.dart';
 import 'package:club8_dev/screens/onboardingScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:record/record.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black, // Set background to black
       ),
       home: RecordingScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
