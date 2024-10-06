@@ -1,3 +1,4 @@
+import 'package:club8_dev/widgets/waveappbarWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:convert';
@@ -44,7 +45,24 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Experiences"),
+        leading: Icon(
+          Icons.arrow_back_sharp,
+          color: Colors.white,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
+          ),
+        ],
+        title: WaveAppBar(
+          waveColor: Colors.purple.shade900.withOpacity(0.9), // Half blue
+        ),
+        backgroundColor: Colors.black,
+        elevation: 0,
       ),
       body: SafeArea(
         child: Padding(
