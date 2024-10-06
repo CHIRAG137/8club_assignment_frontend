@@ -40,7 +40,8 @@ Make sure you have the following installed:
 To clone this repository and get started with the project:
 
 ```bash
-git clone https://github.com/CHIRAG137/8club_assignment_frontend```
+git clone https://github.com/CHIRAG137/8club_assignment_frontend
+```
 
 ### Note
 Tried completing max of the UI but due to time constraints could complete this much and I have implemented the bloc architecture in some of the files so that you can understand my knowledge of bloc but due to less time could not use bloc everywhere.
