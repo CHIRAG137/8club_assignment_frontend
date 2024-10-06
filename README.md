@@ -16,11 +16,12 @@ This Flutter app allows users to select and deselect the hotspots and record aud
 Here are some screenshots and Recording of the app in action:
 
 [Watch Recording Demo](assets/screen_rec.mp4)
-![Experience Screen](assets/image1.jpg)
-![Experience Screen without overflow](assets/image2.jpg)
-![Onboarding Screen](assets/image3.jpg)
-![Recording with sound waves](assets/image4.jpg)
-![Recording with sound waves while stopping recording](assets/image7.jpg)
+
+<img src="assets/image1.jpg" alt="Experience Screen" width="200" height="auto"/>
+<img src="assets/image2.jpg" alt="Experience Screen without overflow" width="200" height="auto"/>
+<img src="assets/image3.jpg" alt="Onboarding Screen" width="200" height="auto"/>
+<img src="assets/image4.jpg" alt="Recording with sound waves" width="200" height="auto"/>
+<img src="assets/image7.jpg" alt="Recording while stopping" width="200" height="auto"/>
 
 ## Getting Started
 
@@ -40,3 +41,6 @@ To clone this repository and get started with the project:
 
 ```bash
 git clone https://github.com/CHIRAG137/8club_assignment_frontend
+
+###Note
+Tried completing max of the UI but due to time constraints could complete this much and I have implemented the bloc architecture in some of the files so that you can understand my knowledge of bloc but due to less time could not use bloc everywhere.
