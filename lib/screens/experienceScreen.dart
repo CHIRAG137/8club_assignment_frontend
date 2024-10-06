@@ -16,11 +16,30 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
   List<dynamic> experiences = [];
   bool isLoading = true;
   final TextEditingController _textController = TextEditingController();
+  double textFieldHeight = 240; // Default height for the TextField
+  double textSize = 20; // Default text size
+  late FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
     fetchExperiences();
+    _focusNode = FocusNode()
+      ..addListener(() {
+        if (_focusNode.hasFocus) {
+          // Adjust height and text size when the keyboard opens
+          setState(() {
+            textFieldHeight = 120; // Decrease height when keyboard opens
+            textSize = 16; // Decrease text size when keyboard opens
+          });
+        } else {
+          // Reset height and text size when the keyboard closes
+          setState(() {
+            textFieldHeight = 240; // Reset height
+            textSize = 20; // Reset text size
+          });
+        }
+      });
   }
 
   Future<void> fetchExperiences() async {
@@ -39,6 +58,13 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
       });
       throw Exception('Failed to load experiences');
     }
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    _textController.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,10 +99,9 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
               Text(
                 "What kind of hotspots do you want to host?",
                 style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: textSize),
               ),
               isLoading
                   ? const Center(child: CircularProgressIndicator())
@@ -100,86 +125,73 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SizedBox(
-                  height: 240, // Increase the height here
+                  height: textFieldHeight, // Adjust height dynamically
                   child: TextField(
                     controller: _textController,
+                    focusNode: _focusNode, // Attach FocusNode
                     maxLength: 250, // Character limit
                     maxLines: null, // Allows multi-line input
-                    expands:
-                        true, // Allows TextField to expand and fill the given height
+                    expands: true, // Allows TextField to expand
+                    style: TextStyle(fontSize: textSize), // Adjust text size
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide.none, // Remove the visible border
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(15)), // Apply border radius
+                        borderSide: BorderSide.none, // Remove border
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(15)), // Radius
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // No border on focus
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(15)), // Keep same radius on focus
+                        borderSide: BorderSide.none,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(15)), // Radius
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // No border when enabled
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(15)), // Apply radius
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // No border on error
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(15)), // Apply radius
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // No border when disabled
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(10)), // Apply radius
+                        borderSide: BorderSide.none,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(15)), // Radius
                       ),
                       labelText: 'Describe your perfect hotspots',
-                      filled: true, // Enable background color
-                      fillColor: Color.fromARGB(
-                          255, 71, 71, 71), // Set the background color to grey
+                      filled: true,
+                      fillColor:
+                          Color.fromARGB(255, 71, 71, 71), // Background color
                     ),
                   ),
                 ),
               ),
               // Button below the TextField
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 4.0), // Adjust vertical padding as needed
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: Container(
-                  width: double.infinity, // Full screen width
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.black, // Left color
-                        Colors.grey, // Center color
-                        Colors.black, // Right color
+                        Colors.black,
+                        Colors.grey,
+                        Colors.black,
                       ],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
-                    borderRadius: BorderRadius.circular(8), // Rounded corners
-                    border: Border.all(
-                        color: Colors.white, width: 0.5), // White border
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.white, width: 0.5),
                   ),
                   child: TextButton(
                     onPressed: () {
                       // Handle button press
                     },
                     child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.center, // Center the content
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.arrow_forward, // Icon on the button
+                          Icons.arrow_forward,
                           color: Colors.white,
                         ),
-                        SizedBox(width: 8), // Space between icon and text
+                        SizedBox(width: 8),
                         Text(
                           "Next",
                           style: TextStyle(
-                            color: Colors.white, // Text color
-                            fontSize: 16, // Text size
+                            color: Colors.white,
+                            fontSize: 16,
                           ),
                         ),
                       ],
