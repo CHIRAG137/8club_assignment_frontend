@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:club8_dev/Utils/colors.dart';
+import 'package:club8_dev/Utils/spacing.dart';
 import 'package:flutter/material.dart';
 
 class CustomRecordingWaveWidget extends StatefulWidget {
@@ -108,7 +109,7 @@ class _RecordingWaveWidgetState extends State<CustomRecordingWaveWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(Spacing.medium),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -123,7 +124,7 @@ class _RecordingWaveWidgetState extends State<CustomRecordingWaveWidget> {
           color: AppColors.greyBorder,
           width: 0.2,
         ),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(Spacing.medium),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,9 +147,7 @@ class _RecordingWaveWidgetState extends State<CustomRecordingWaveWidget> {
                 ),
             ],
           ),
-          SizedBox(
-            height: 12,
-          ),
+          SizedBox(height: Spacing.small),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -163,7 +162,7 @@ class _RecordingWaveWidgetState extends State<CustomRecordingWaveWidget> {
                     color: AppColors.iconBackground,
                     shape: BoxShape.circle,
                   ),
-                  padding: const EdgeInsets.all(8),
+                  padding: EdgeInsets.all(Spacing.small),
                   child: Icon(
                     widget.isRecording
                         ? Icons.mic
@@ -184,7 +183,7 @@ class _RecordingWaveWidgetState extends State<CustomRecordingWaveWidget> {
                       duration: const Duration(milliseconds: 300),
                       width: 6,
                       height: MediaQuery.sizeOf(context).height * height,
-                      margin: const EdgeInsets.only(right: 3),
+                      margin: EdgeInsets.only(right: Spacing.small),
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(5),

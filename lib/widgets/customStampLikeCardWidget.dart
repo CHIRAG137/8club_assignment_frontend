@@ -1,4 +1,5 @@
 import 'package:club8_dev/Utils/colors.dart';
+import 'package:club8_dev/Utils/spacing.dart';
 import 'package:club8_dev/widgets/customTicketClipperWidget.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -48,8 +49,9 @@ class _StampLikeCardState extends State<StampLikeCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(height: Spacing.small),
                 Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   height: 110,
                   width: 110,
                   color: selectedColor,
@@ -81,6 +83,7 @@ class _StampLikeCardState extends State<StampLikeCard> {
                     ],
                   ),
                 ),
+                const SizedBox(height: Spacing.small),
               ],
             ),
           ),
