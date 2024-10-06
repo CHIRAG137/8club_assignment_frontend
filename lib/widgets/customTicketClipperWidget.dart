@@ -1,3 +1,4 @@
+import 'package:club8_dev/Utils/spacing.dart';
 import 'package:flutter/material.dart';
 
 class TicketClipper extends CustomClipper<Path> {
@@ -5,12 +6,12 @@ class TicketClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final Path path = Path();
 
-    const double semiCircleRadius = 4.0;
-    const double gapLength = 4.0;
+    const double semiCircleRadius = Spacing.small; 
+    const double gapLength = Spacing.small;
 
     path.moveTo(0, 0);
 
-    // Top side: 4 semicircles with gaps between them
+    // Top side: semicircles with gaps
     for (double i = 0; i < size.width; i += 2 * semiCircleRadius + gapLength) {
       path.lineTo(i + gapLength, 0);
       path.arcToPoint(
@@ -20,7 +21,7 @@ class TicketClipper extends CustomClipper<Path> {
       );
     }
 
-    // Right side: 4 semicircles with gaps between them
+    // Right side: semicircles with gaps
     for (double i = 0; i < size.height; i += 2 * semiCircleRadius + gapLength) {
       path.lineTo(size.width, i + gapLength);
       path.arcToPoint(
@@ -30,7 +31,7 @@ class TicketClipper extends CustomClipper<Path> {
       );
     }
 
-    // Bottom side: 4 semicircles with gaps between them
+    // Bottom side: semicircles with gaps
     for (double i = size.width; i > 0; i -= 2 * semiCircleRadius + gapLength) {
       path.lineTo(i - gapLength, size.height);
       path.arcToPoint(
@@ -40,7 +41,7 @@ class TicketClipper extends CustomClipper<Path> {
       );
     }
 
-    // Left side: 4 semicircles with gaps between them
+    // Left side: semicircles with gaps
     for (double i = size.height; i > 0; i -= 2 * semiCircleRadius + gapLength) {
       path.lineTo(0, i - gapLength);
       path.arcToPoint(

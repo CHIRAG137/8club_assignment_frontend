@@ -1,4 +1,5 @@
 import 'package:club8_dev/Utils/colors.dart';
+import 'package:club8_dev/Utils/spacing.dart';
 import 'package:flutter/material.dart';
 
 class CustomRecordingButton extends StatelessWidget {
@@ -14,8 +15,8 @@ class CustomRecordingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
-      width: 60,
+      height: 60 + Spacing.small,
+      width: 60 + Spacing.small,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
@@ -26,10 +27,11 @@ class CustomRecordingButton extends StatelessWidget {
       child: MaterialButton(
         onPressed: onPressed,
         shape: const CircleBorder(),
-        child: const Icon(
-          Icons.mic,
+        padding: const EdgeInsets.all(Spacing.medium),
+        child: Icon(
+          isRecording ? Icons.stop : Icons.mic,
           color: AppColors.micIconColor,
-          size: 18,
+          size: 24,
         ),
       ),
     );

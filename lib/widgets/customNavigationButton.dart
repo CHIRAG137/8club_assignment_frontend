@@ -1,4 +1,5 @@
 import 'package:club8_dev/Utils/colors.dart';
+import 'package:club8_dev/Utils/spacing.dart';
 import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
@@ -18,7 +19,7 @@ class GradientButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: EdgeInsets.symmetric(vertical: Spacing.small), // Use spacing constant
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -58,7 +59,7 @@ class GradientButton extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: Spacing.horizontalMedium), // Use spacing constant
                 Icon(
                   icon,
                   color: controller.text.isEmpty

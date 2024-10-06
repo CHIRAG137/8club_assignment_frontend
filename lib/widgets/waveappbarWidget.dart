@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../utils/colors.dart'; 
+import '../utils/colors.dart';
+import '../utils/spacing.dart';
 
 /// A custom AppBar widget that features a wave effect in its title.
 class WaveAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -12,35 +13,35 @@ class WaveAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: const Icon(
-        Icons.arrow_back_sharp, 
+        Icons.arrow_back_sharp,
         color: AppColors.appBarIconColor,
       ),
       actions: const [
         Padding(
-          padding: EdgeInsets.all(8.0), 
+          padding: EdgeInsets.all(Spacing.small), 
           child: Icon(
             Icons.close,
-            color: AppColors.appBarIconColor, 
+            color: AppColors.appBarIconColor,
           ),
         ),
       ],
       title: RichText(
         text: const TextSpan(
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold), 
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           children: [
             TextSpan(
               text: '︵‿︵‿︵‿',
-              style: TextStyle(color: AppColors.waveColor), 
+              style: TextStyle(color: AppColors.waveColor),
             ),
             TextSpan(
-              text: '︵‿︵‿︵‿', 
-              style: TextStyle(color: AppColors.waveTextColor), 
+              text: '︵‿︵‿︵‿',
+              style: TextStyle(color: AppColors.waveTextColor),
             ),
           ],
         ),
       ),
-      backgroundColor: AppColors.appBarBackground, 
-      elevation: 0, 
+      backgroundColor: AppColors.appBarBackground,
+      elevation: 0,
     );
   }
 
