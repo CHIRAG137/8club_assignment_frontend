@@ -68,6 +68,7 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
                 "What kind of hotspots do you want to host?",
@@ -107,9 +108,81 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                     expands:
                         true, // Allows TextField to expand and fill the given height
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide.none, // Remove the visible border
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(15)), // Apply border radius
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none, // No border on focus
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(15)), // Keep same radius on focus
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none, // No border when enabled
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(15)), // Apply radius
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none, // No border on error
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(15)), // Apply radius
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none, // No border when disabled
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(10)), // Apply radius
+                      ),
                       labelText: 'Describe your perfect hotspots',
-                      hintText: 'Max 250 characters',
+                      filled: true, // Enable background color
+                      fillColor: Color.fromARGB(
+                          255, 71, 71, 71), // Set the background color to grey
+                    ),
+                  ),
+                ),
+              ),
+              // Button below the TextField
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 4.0), // Adjust vertical padding as needed
+                child: Container(
+                  width: double.infinity, // Full screen width
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.black, // Left color
+                        Colors.grey, // Center color
+                        Colors.black, // Right color
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.circular(8), // Rounded corners
+                    border: Border.all(
+                        color: Colors.white, width: 0.5), // White border
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      // Handle button press
+                    },
+                    child: Row(
+                      mainAxisAlignment:
+                          MainAxisAlignment.center, // Center the content
+                      children: [
+                        Icon(
+                          Icons.arrow_forward, // Icon on the button
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 8), // Space between icon and text
+                        Text(
+                          "Next",
+                          style: TextStyle(
+                            color: Colors.white, // Text color
+                            fontSize: 16, // Text size
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -182,23 +255,30 @@ class _StampLikeCardState extends State<StampLikeCard> {
                   height: 120,
                   width: 120,
                   color: selectedColor, // Use the dynamic color
-                  child: Column(
+                  child: Stack(
                     children: [
-                      Image.network(
-                        widget.experience['icon_url'],
-                        width: 70,
-                        height: 70,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        widget.experience['name'],
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          widget.experience['name'],
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
+                      ),
+                      Positioned(
+                        top: 24,
+                        left: 20,
+                        right: 20,
+                        child: Image.network(
+                          widget.experience['icon_url'],
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ],
                   ),
