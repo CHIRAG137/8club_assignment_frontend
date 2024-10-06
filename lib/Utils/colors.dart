@@ -21,4 +21,16 @@ class AppColors {
   static const Color background = Color(0xFFF0F0F0);
   static const Color black = Color(0xFF000000);
   static const Color accentColor = Color(0xFFFFC107);
+
+  static const Color micIconColor = Colors.white;
+  static const double borderWidth = 0.2; 
+
+  static const Color backgroundGradientStart = Colors.black;
+  static const Color backgroundGradientMiddle = Color.fromARGB(255, 71, 71, 71);
+  static const Color backgroundGradientEnd = Colors.black;
+  static const Color iconBackground = Color(0xFF9196FF);
+  static const Color iconColorWhite = Colors.white;
+  static const Color textGrey = Colors.grey;
+  static const Color elapsedTimeTextColor = Color(0xFF9196FF);
+  static const Color greyBorder = Colors.grey;
 }

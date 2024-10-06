@@ -1,3 +1,4 @@
+import 'package:club8_dev/Utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomRecordingButton extends StatelessWidget {
@@ -13,22 +14,22 @@ class CustomRecordingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60, // Adjust height as needed
-      width: 60, // Adjust width as needed
+      height: 60,
+      width: 60,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18), // Rounded corners
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: Colors.white, // Border color
-          width: 1, // Border width
+          color: AppColors.borderColor,
+          width: AppColors.borderWidth,
         ),
       ),
       child: MaterialButton(
         onPressed: onPressed,
         shape: const CircleBorder(),
-        child: Icon(
-          Icons.mic, // Use microphone icon
-          color: Colors.white,
-          size: 18, // Adjust the size of the icon
+        child: const Icon(
+          Icons.mic,
+          color: AppColors.micIconColor,
+          size: 18,
         ),
       ),
     );
