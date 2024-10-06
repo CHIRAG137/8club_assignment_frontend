@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:club8_dev/widgets/customRecordingButton.dart';
 import 'package:club8_dev/widgets/customRecordingWaveWidget.dart';
+import 'package:club8_dev/widgets/customTextField.dart';
+import 'package:club8_dev/widgets/waveappbarWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -15,11 +17,12 @@ class RecordingScreen extends StatefulWidget {
 
 class _RecordingScreenState extends State<RecordingScreen> {
   bool isRecording = false;
+  bool showWaveWidget = false; // New variable to control wave widget visibility
   late final AudioRecorder _audioRecorder;
   String? _audioPath;
   final TextEditingController _textController =
       TextEditingController(); // Add controller for TextField
-  double textFieldHeight = 240; // Default height for the TextField
+  double textFieldHeight = 360; // Default height for the TextField
   double textSize = 20; // Default text size
   late FocusNode _focusNode;
 
@@ -38,7 +41,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
         } else {
           // Reset height and text size when the keyboard closes
           setState(() {
-            textFieldHeight = 240; // Reset height
+            textFieldHeight = 360; // Reset height
             textSize = 20; // Reset text size
           });
         }
@@ -49,6 +52,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
   void dispose() {
     _audioRecorder.dispose();
     _textController.dispose(); // Dispose the TextEditingController
+    _focusNode.dispose(); // Dispose the FocusNode
     super.dispose();
   }
 
@@ -87,6 +91,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
       setState(() {
         _audioPath = path!;
+        showWaveWidget = true; // Show the wave widget after stopping recording
       });
       debugPrint('=========>>>>>> PATH: $_audioPath <<<<<<===========');
     } catch (e) {
@@ -101,6 +106,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
       if (status == PermissionStatus.granted) {
         setState(() {
           isRecording = true;
+          showWaveWidget = true; // Show wave widget when recording starts
         });
         await _startRecording();
       } else if (status == PermissionStatus.permanentlyDenied) {
@@ -119,53 +125,49 @@ class _RecordingScreenState extends State<RecordingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          // TextField added here
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SizedBox(
-              height: textFieldHeight, // Adjust height dynamically
-              child: TextField(
-                controller: _textController,
-                focusNode: _focusNode, // Attach FocusNode
-                maxLength: 250, // Character limit
-                maxLines: null, // Allows multi-line input
-                expands: true, // Allows TextField to expand
-                style: TextStyle(fontSize: textSize), // Adjust text size
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none, // Remove border
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(15)), // Radius
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(15)), // Radius
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(15)), // Radius
-                  ),
-                  labelText: 'Describe your perfect hotspots',
-                  filled: true,
-                  fillColor:
-                      Color.fromARGB(255, 71, 71, 71), // Background color
-                ),
+      appBar: const WaveAppBar(),
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              "Why do you want to host with us?",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: textSize),
+            ),
+            SizedBox(height: 12),
+            const Text(
+              "Tell us about your intent and what motivates you to create experiences.",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 14,
               ),
             ),
-          ),
-          const SizedBox(height: 16),
-          if (isRecording) const CustomRecordingWaveWidget(),
-          const SizedBox(height: 16),
-          CustomRecordingButton(
-            isRecording: isRecording,
-            onPressed: () => _record(),
-          ),
-        ],
+            SizedBox(height: 12),
+            CustomTextField(
+              controller: _textController,
+              focusNode: _focusNode,
+              textFieldHeight: textFieldHeight,
+              textSize: textSize,
+              hintText: 'Start typing here',
+            ),
+            const SizedBox(height: 12),
+            if (isRecording ||
+                showWaveWidget) // Show the wave widget if recording or after
+              CustomRecordingWaveWidget(
+                isRecording: isRecording,
+              ),
+            const SizedBox(height: 16),
+            CustomRecordingButton(
+              isRecording: isRecording,
+              onPressed: () => _record(),
+            ),
+          ],
+        ),
       ),
     );
   }
